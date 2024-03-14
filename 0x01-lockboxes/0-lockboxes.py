@@ -1,26 +1,25 @@
 #!/usr/bin/python3
-from collections import deque
 """
-.lockboxes
+.0-lockboxes
 """
 
 
 def canUnlockAll(boxes):
     """
-    A method that determines if all the boxes can be opened
+    Determines if all the boxes can be opened.
+
     """
-    num_boxes = len(boxes)
-    visited = [False] * num_boxes
-    visited[0] = True  # Mark the first box as visited
-    queue = deque([0])  # Start with the first box
-    boxes_checked = 1  # Keep track of the number of boxes visited
-
-    while queue and boxes_checked < num_boxes:
-        current_box = queue.popleft()
+    num_of_boxes = len(boxes)
+    visited = [False] * num_of_boxes
+    visited[0] = True
+    stack = [0]
+    while True:
+        if not stack:
+            break
+        current_box = stack.pop()
         for key in boxes[current_box]:
-            if not visited[key]:
+            if key < num_of_boxes and not visited[key]:
+                stack.append(key)
                 visited[key] = True
-                queue.append(key)
-                boxes_checked += 1
+    return all(visited)
 
-    return boxes_checked == num_boxes
