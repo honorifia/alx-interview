@@ -22,4 +22,3 @@ def canUnlockAll(boxes):
                 stack.append(key)
                 visited[key] = True
     return all(visited)
-
