@@ -12,13 +12,15 @@ def canUnlockAll(boxes):
     num_boxes = len(boxes)
     visited = [False] * num_boxes
     visited[0] = True  # Mark the first box as visited
-    queue = deque([0])
+    queue = deque([0])  # Start with the first box
+    boxes_checked = 1  # Keep track of the number of boxes visited
 
-    while queue:
+    while queue and boxes_checked < num_boxes:
         current_box = queue.popleft()
         for key in boxes[current_box]:
-            if key < num_boxes and not visited[key]:
-                queue.append(key)
+            if not visited[key]:
                 visited[key] = True
+                queue.append(key)
+                boxes_checked += 1
 
-    return all(visited)
+    return boxes_checked == num_boxes
